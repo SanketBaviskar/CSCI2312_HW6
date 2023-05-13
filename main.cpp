@@ -3,12 +3,12 @@
 #include <stdexcept>
 #include <fstream>
 #include <vector>
-
 struct basicRect{
     int height;
     int width;
 };
 
+//define a struct to hold the information of a shape
 struct basicTri{
     int height;
     int width;
@@ -18,13 +18,14 @@ struct basicTri{
     // 3 -> Right Triangle (Bottom heavy)
     int triangle_type;
 };
-
+// define a function to test the ShapeReader class
 bool test_file(std::string filename, bool expected_outcome, basicRect r = {-1,-1}){
     std::cout << "TESTING " << filename << std::endl;
-
+// Create an instance of the ShapeReader class
     ShapeReader tester = ShapeReader();
     bool pass = false;
     try{
+        // Attempt to read in the shape from the file
         tester.readFile(filename);
         printf("File read successfully with the following properties. \n");
         printf("Height: %i, Width: %i \n",tester.getHeight(),tester.getWidth());
@@ -34,6 +35,7 @@ bool test_file(std::string filename, bool expected_outcome, basicRect r = {-1,-1
         std::cout << "Error from file: " << filename << std::endl;
         std::cout << e.what() << std::endl;
     }
+    // Check if the test passed or failed
     if(pass == expected_outcome){
         if(pass){
             if(r.height == tester.getHeight() && r.width == tester.getWidth()){
@@ -54,7 +56,7 @@ bool test_file(std::string filename, bool expected_outcome, basicRect r = {-1,-1
     std::cout << "TEST FAILED" << std::endl;
     return false;
 }
-
+// Define a function to print a test report
 void printTestReport(std::ostream& output, std::vector<bool> report){
 
     output << "=================================================" << std::endl;
@@ -77,7 +79,7 @@ void printTestReport(std::ostream& output, std::vector<bool> report){
     output << "=================================================" << std::endl;
 
 }
-
+// Define a function to run the unit test for the ShapeReader class
 void unitTestShapeReader(){
     std::vector<bool> error_report;
 
